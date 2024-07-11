@@ -1,0 +1,38 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MyAppKunjungan" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.MyAppKunjungan" parent="Base.Theme.MyAppKunjungan" />
+
+    <style name="Widget.App.PopupMenu" parent="Widget.Material3.PopupMenu">
+            <item name="android:fontFamily">@font/poppins_regular</item>
+            <item name="android:textSize">14sp</item>
+            <item name="popupMenuBackground">@drawable/bg_popup</item>
+        </style>
+
+    <style name="TitleTextAppearance">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="TextView" />
+
+    <style name="TextView.CustomFontRegular">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="TextView.CustomFontBold">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="TextView.CustomFontMedium">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+</resources>

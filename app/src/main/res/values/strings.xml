@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyAppKunjungan</string>
+    <string name="login">Login</string>
+    <string name="date_visited">Tanggal Kunjungan</string>
+    <string name="welcome">Selamat datang!</string>
+    <string name="username">Username</string>
+    <string name="content_description">Content Description</string>
+    <string name="suggestion">Kritik dan Saran</string>
+    <string name="submit">Submit</string>
+    <string name="delete">Hapus</string>
+    <string name="nik">NIK</string>
+    <string name="name">Nama</string>
+    <string name="address">Alamat</string>
+    <string name="add">Tambah</string>
+    <string name="ok">OK</string>
+</resources>

@@ -62,7 +62,7 @@ class AddEditVisitorActivity : AppCompatActivity() {
             }
 
             topAppBar.title = if (activity == "add") {
-                "Tambah Pengunjung"
+                "Registrasi Pengunjung"
             } else {
                 "Edit Pengunjung"
             }

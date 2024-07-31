@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.myappkunjungan.R
-import com.myappkunjungan.data.response.DefaultResponse
+import com.myappkunjungan.data.response.UserResponse
 import com.myappkunjungan.data.retrofit.ApiConfig
 import com.myappkunjungan.databinding.ActivityLoginBinding
 import com.myappkunjungan.pref.UserPreference
@@ -92,18 +92,27 @@ class LoginActivity : AppCompatActivity() {
     private fun login() {
         setLoading(this, true)
         val client = ApiConfig.getApiService().login(username, dateVisited)
-        client.enqueue(object : retrofit2.Callback<DefaultResponse> {
-            override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+        client.enqueue(object : retrofit2.Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 setLoading(this@LoginActivity, false)
                 if (response.isSuccessful) {
                     val status = response.body()?.status
                     val message = response.body()?.message
+                    val userResponse = response.body()
 
                     if (status == true) {
+                        // Save session token
                         userPreference.saveSessionToken(username)
 
+                        // Save user data if available
+                        userResponse?.data?.let { user ->
+                            userPreference.saveUser(user)
+                        }
+
+                        // Proceed to the main activity
                         goToMain()
                     } else {
+                        // Show the error message
                         Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
                     }
                 } else {
@@ -111,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 setLoading(this@LoginActivity, false)
                 Log.d(TAG, "onFailure: ${t.message}")
             }

@@ -1,6 +1,10 @@
 package com.myappkunjungan.data.retrofit
 
+import com.myappkunjungan.data.response.CountVisitor
+import com.myappkunjungan.data.response.CountVisitorResponse
 import com.myappkunjungan.data.response.DefaultResponse
+import com.myappkunjungan.data.response.SuggestionResponse
+import com.myappkunjungan.data.response.UserResponse
 import com.myappkunjungan.data.response.VisitorResponse
 import retrofit2.Call
 import retrofit2.http.Field
@@ -15,7 +19,7 @@ interface ApiService {
     fun login(
         @Field("username") username: String,
         @Field("date_visited") dateVisited: String
-    ): Call<DefaultResponse>
+    ): Call<UserResponse>
 
     @GET("visitors")
     fun getVisitors(
@@ -44,6 +48,14 @@ interface ApiService {
     fun deleteVisitor(
         @Path("id") id: Int
     ): Call<DefaultResponse>
+
+    @GET("count-visitors")
+    fun getCountVisitors(
+    ): Call<CountVisitorResponse>
+
+    @GET("suggestions")
+    fun getSuggestions(
+    ): Call<SuggestionResponse>
 
     @FormUrlEncoded
     @POST("suggestion-store")

@@ -1,6 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <group
+        android:id="@+id/optionMenuChart">
+        <item
+            android:id="@+id/menuChart"
+            android:title="Statistik Pengunjung"
+            app:showAsAction="never" />
+    </group>
+
     <item
         android:id="@+id/menuSuggestion"
         android:title="Kritik dan Saran"

@@ -8,10 +8,11 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.myappkunjungan.data.response.Visitor
 import com.myappkunjungan.databinding.ItemRowVisitorBinding
+import com.myappkunjungan.pref.UserPreference
 import com.myappkunjungan.ui.addeditvisitor.AddEditVisitorActivity
 import com.myappkunjungan.util.convertDate
 
-class VisitorAdapter(private val visitorList: List<Visitor>): RecyclerView.Adapter<VisitorAdapter.ViewHolder>()  {
+class VisitorAdapter(private val visitorList: List<Visitor>, private var userPreference: UserPreference): RecyclerView.Adapter<VisitorAdapter.ViewHolder>()  {
 
     class ViewHolder (val binding: ItemRowVisitorBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -33,11 +34,14 @@ class VisitorAdapter(private val visitorList: List<Visitor>): RecyclerView.Adapt
                     textDate.text = convertDate(dateVisited)
                     textAddress.text = address
 
-                    root.setOnClickListener {
-                        val moveWithObjectIntent = Intent(itemView.context, AddEditVisitorActivity::class.java)
-                        moveWithObjectIntent.putExtra("activity", "edit")
-                        moveWithObjectIntent.putExtra("EXTRA_VISITOR", visitorList[position])
-                        itemView.context.startActivity(moveWithObjectIntent)
+                    val role = userPreference.getUser()?.role
+                    if (role == "admin") {
+                        root.setOnClickListener {
+                            val moveWithObjectIntent = Intent(itemView.context, AddEditVisitorActivity::class.java)
+                            moveWithObjectIntent.putExtra("activity", "edit")
+                            moveWithObjectIntent.putExtra("EXTRA_VISITOR", visitorList[position])
+                            itemView.context.startActivity(moveWithObjectIntent)
+                        }
                     }
                 }
             }

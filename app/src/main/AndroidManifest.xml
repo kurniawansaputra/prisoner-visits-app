@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.chart.ChartActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.addeditvisitor.AddEditVisitorActivity"
             android:exported="false" />
         <activity

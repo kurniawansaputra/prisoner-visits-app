@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.suggestion.SuggestionActivity">
+    tools:context=".ui.chart.ChartActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -22,7 +22,7 @@
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back"
             app:titleTextAppearance="@style/TitleTextAppearance"
-            app:title="Kritik dan Saran"/>
+            app:title="Statistik Pengunjung"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -44,48 +44,13 @@
             android:paddingTop="16dp"
             android:paddingBottom="24dp">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chartViewEdu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/suggestion">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editSuggestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:maxLines="3"
-                    android:textAppearance="@style/TextView.CustomFontRegular"
-                    android:textSize="14sp"
-                    tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/buttonSubmit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="@string/submit"
-                android:textAppearance="@style/TextView.CustomFontMedium"
-                android:textSize="14sp"
-                tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSuggestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:layout_marginTop="24dp"
-                android:paddingVertical="4dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_height="220dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:itemCount="14"
-                tools:listitem="@layout/item_row_suggestion" />
+                app:layout_constraintTop_toBottomOf="@+id/labelCount" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

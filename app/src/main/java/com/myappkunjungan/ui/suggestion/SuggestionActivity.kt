@@ -3,6 +3,7 @@ package com.myappkunjungan.ui.suggestion
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.myappkunjungan.R
 import com.myappkunjungan.data.response.DefaultResponse
+import com.myappkunjungan.data.response.Suggestion
+import com.myappkunjungan.data.response.SuggestionResponse
 import com.myappkunjungan.data.retrofit.ApiConfig
 import com.myappkunjungan.databinding.ActivitySuggestionBinding
 import com.myappkunjungan.ui.main.MainActivity
@@ -33,6 +36,7 @@ class SuggestionActivity : AppCompatActivity() {
         }
 
         setToolbar()
+        getSuggestions()
         setListener()
     }
 
@@ -85,6 +89,36 @@ class SuggestionActivity : AppCompatActivity() {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
         })
+    }
+
+    private fun getSuggestions() {
+        setProgressBar(true)
+        val client = ApiConfig.getApiService().getSuggestions()
+        client.enqueue(object : retrofit2.Callback<SuggestionResponse> {
+            override fun onResponse(call: Call<SuggestionResponse>, response: Response<SuggestionResponse>) {
+                setProgressBar(false)
+                if (response.isSuccessful) {
+                    val status = response.body()?.status
+                    val data = response.body()?.data
+
+                    if (status == true) {
+                        val suggestionAdapter = SuggestionAdapter(data as ArrayList<Suggestion>)
+                        binding.rvSuggestion.visibility = View.VISIBLE
+                        binding.rvSuggestion.adapter = suggestionAdapter
+                        binding.rvSuggestion.setHasFixedSize(true)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<SuggestionResponse>, t: Throwable) {
+                setProgressBar(false)
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    private fun setProgressBar(isVisible: Boolean) {
+        binding.progressBar.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     private fun goToMain() {

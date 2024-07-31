@@ -20,6 +20,7 @@ import com.myappkunjungan.databinding.ActivityMainBinding
 import com.myappkunjungan.databinding.LayoutDialogContactBinding
 import com.myappkunjungan.pref.UserPreference
 import com.myappkunjungan.ui.addeditvisitor.AddEditVisitorActivity
+import com.myappkunjungan.ui.chart.ChartActivity
 import com.myappkunjungan.ui.login.LoginActivity
 import com.myappkunjungan.ui.regulation.RegulationActivity
 import com.myappkunjungan.ui.suggestion.SuggestionActivity
@@ -27,6 +28,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    private var role: String? = null
     private lateinit var userPreference: UserPreference
     private lateinit var binding: ActivityMainBinding
 
@@ -41,16 +43,33 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        setPref()
         optionMenu()
         getVisitors()
         swipeRefresh()
         setListener()
     }
 
+    private fun setPref() {
+        userPreference = UserPreference(this)
+        role = userPreference.getUser()?.role
+    }
+
     private fun optionMenu() {
         binding.apply {
+            if (role == "admin") {
+                topAppBar.menu.setGroupVisible(R.id.optionMenuChart, true)
+            } else {
+                topAppBar.menu.setGroupVisible(R.id.optionMenuChart, false)
+            }
+
             topAppBar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
+                    R.id.menuChart -> {
+                        val intent = Intent(this@MainActivity, ChartActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
                     R.id.menuLogout -> {
                         logout()
                         true
@@ -97,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                     val data = response.body()?.data
 
                     if (status == true) {
-                        val visitorAdapter = VisitorAdapter(data as ArrayList<Visitor>)
+                        val visitorAdapter = VisitorAdapter(data as ArrayList<Visitor>, userPreference)
                         binding.rvVisitor.visibility = View.VISIBLE
                         binding.rvVisitor.adapter = visitorAdapter
                         binding.rvVisitor.setHasFixedSize(true)

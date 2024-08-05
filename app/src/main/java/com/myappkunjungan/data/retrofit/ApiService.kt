@@ -1,6 +1,5 @@
 package com.myappkunjungan.data.retrofit
 
-import com.myappkunjungan.data.response.CountVisitor
 import com.myappkunjungan.data.response.CountVisitorResponse
 import com.myappkunjungan.data.response.DefaultResponse
 import com.myappkunjungan.data.response.SuggestionResponse
@@ -12,6 +11,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @FormUrlEncoded
@@ -25,13 +25,21 @@ interface ApiService {
     fun getVisitors(
     ): Call<VisitorResponse>
 
+    @GET("visitors-by-month")
+    fun getVisitorsByMonth(
+        @Query("month") month: String?,
+        @Query("year") year: String?
+    ): Call<VisitorResponse>
+
     @FormUrlEncoded
     @POST("visitor-store")
     fun addVisitor(
         @Field("nik") nik: String,
         @Field("name") name: String,
         @Field("address") address: String,
-        @Field("date_visited") dateVisited: String
+        @Field("date_visited") dateVisited: String,
+        @Field("prisoner_number") prisonerNo: String,
+        @Field("luggage") items: String
     ): Call<DefaultResponse>
 
     @FormUrlEncoded
@@ -41,7 +49,9 @@ interface ApiService {
         @Field("nik") nik: String,
         @Field("name") name: String,
         @Field("address") address: String,
-        @Field("date_visited") dateVisited: String
+        @Field("date_visited") dateVisited: String,
+        @Field("prisoner_number") prisonerNo: String,
+        @Field("luggage") items: String
     ): Call<DefaultResponse>
 
     @POST("visitor-delete/{id}")

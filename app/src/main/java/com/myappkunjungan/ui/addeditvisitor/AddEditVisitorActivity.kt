@@ -31,6 +31,8 @@ class AddEditVisitorActivity : AppCompatActivity() {
     private lateinit var name: String
     private lateinit var address: String
     private lateinit var dateVisited: String
+    private lateinit var prisonerNo: String
+    private lateinit var items: String
     private lateinit var binding: ActivityAddEditVisitorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,8 +105,10 @@ class AddEditVisitorActivity : AppCompatActivity() {
                     name = editName.text.toString()
                     address = editAddress.text.toString()
                     dateVisited = editDateVisited.text.toString()
+                    prisonerNo = editPrisonerNo.text.toString()
+                    items = editItems.text.toString()
 
-                    if (nik.isEmpty() || name.isEmpty() || address.isEmpty() || dateVisited.isEmpty()) {
+                    if (nik.isEmpty() || name.isEmpty() || address.isEmpty() || dateVisited.isEmpty() || prisonerNo.isEmpty() || items.isEmpty()) {
                         Toast.makeText(
                             this@AddEditVisitorActivity,
                             "Harap lengkapi form terlebih dahulu",
@@ -125,7 +129,7 @@ class AddEditVisitorActivity : AppCompatActivity() {
 
     private fun addVisitor() {
         setLoading(this, true)
-        val client = ApiConfig.getApiService().addVisitor(nik, name, address, dateVisited)
+        val client = ApiConfig.getApiService().addVisitor(nik, name, address, dateVisited, prisonerNo, items)
         client.enqueue(object : retrofit2.Callback<DefaultResponse> {
             override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
                 setLoading(this@AddEditVisitorActivity, false)
@@ -153,7 +157,7 @@ class AddEditVisitorActivity : AppCompatActivity() {
 
     private fun editVisitor() {
         setLoading(this, true)
-        val client = ApiConfig.getApiService().updateVisitor(id, nik, name, address, dateVisited)
+        val client = ApiConfig.getApiService().updateVisitor(id, nik, name, address, dateVisited, prisonerNo, items)
         client.enqueue(object : retrofit2.Callback<DefaultResponse> {
             override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
                 setLoading(this@AddEditVisitorActivity, false)
@@ -224,6 +228,8 @@ class AddEditVisitorActivity : AppCompatActivity() {
                     editName.setText(visitor.name)
                     editAddress.setText(visitor.address)
                     editDateVisited.setText(visitor.dateVisited)
+                    editPrisonerNo.setText(visitor.prisonerNumber)
+                    editItems.setText(visitor.luggage)
                 }
             }
         }

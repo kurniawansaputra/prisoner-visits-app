@@ -20,7 +20,7 @@ import com.myappkunjungan.databinding.ActivityMainBinding
 import com.myappkunjungan.databinding.LayoutDialogContactBinding
 import com.myappkunjungan.pref.UserPreference
 import com.myappkunjungan.ui.addeditvisitor.AddEditVisitorActivity
-import com.myappkunjungan.ui.chart.ChartActivity
+import com.myappkunjungan.ui.report.ReportActivity
 import com.myappkunjungan.ui.login.LoginActivity
 import com.myappkunjungan.ui.regulation.RegulationActivity
 import com.myappkunjungan.ui.suggestion.SuggestionActivity
@@ -58,15 +58,15 @@ class MainActivity : AppCompatActivity() {
     private fun optionMenu() {
         binding.apply {
             if (role == "admin") {
-                topAppBar.menu.setGroupVisible(R.id.optionMenuChart, true)
+                topAppBar.menu.setGroupVisible(R.id.optionMenuReport, true)
             } else {
-                topAppBar.menu.setGroupVisible(R.id.optionMenuChart, false)
+                topAppBar.menu.setGroupVisible(R.id.optionMenuReport, false)
             }
 
             topAppBar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
-                    R.id.menuChart -> {
-                        val intent = Intent(this@MainActivity, ChartActivity::class.java)
+                    R.id.menuReport -> {
+                        val intent = Intent(this@MainActivity, ReportActivity::class.java)
                         startActivity(intent)
                         true
                     }

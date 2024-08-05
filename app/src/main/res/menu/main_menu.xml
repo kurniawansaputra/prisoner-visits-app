@@ -2,10 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group
-        android:id="@+id/optionMenuChart">
+        android:id="@+id/optionMenuReport">
         <item
-            android:id="@+id/menuChart"
-            android:title="Statistik Pengunjung"
+            android:id="@+id/menuReport"
+            android:title="Laporan Bulanan"
             app:showAsAction="never" />
     </group>
 

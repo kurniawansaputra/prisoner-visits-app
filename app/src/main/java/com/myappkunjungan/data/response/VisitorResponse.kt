@@ -33,5 +33,11 @@ data class Visitor(
 	val id: Int,
 
 	@field:SerializedName("date_visited")
-	val dateVisited: String
+	val dateVisited: String,
+
+	@field:SerializedName("prisoner_number")
+	val prisonerNumber: String,
+
+	@field:SerializedName("luggage")
+	val luggage: String,
 ): Parcelable
